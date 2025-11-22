@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+    nodejs 'node20'
+  }
+
     environment {
         APP_NAME   = "node-app"
         IMAGE_TAG  = "v1"
