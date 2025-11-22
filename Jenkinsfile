@@ -73,17 +73,13 @@ pipeline {
 
         stage('Trivy Scan') {
             steps {
-                sh """
-                    ${TRIVY_PATH} image --severity CRITICAL,HIGH \
-                    --exit-code 0 ${APP_NAME}:${IMAGE_TAG}
-                """
-
-                sh """
-                    ${TRIVY_PATH} image --severity CRITICAL,HIGH \
-                    --exit-code 1 ${APP_NAME}:${IMAGE_TAG} || true
-                """
-            }
-        }
+               sh """
+                   docker run --rm \
+                   -v /var/run/docker.sock:/var/run/docker.sock \
+                   aquasec/trivy:latest image node-app:v1 || true //set to false if pipeline want to get fails if docker image is not compliant. 
+                  """
+    }
+}
 
         stage('Docker Push to Nexus') {
             steps {
