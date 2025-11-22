@@ -83,12 +83,21 @@ pipeline {
 
         stage('Docker Push to Nexus') {
             steps {
-                sh """
-                    docker tag ${APP_NAME}:${IMAGE_TAG} ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
-                    docker push ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
-                """
-            }
-        }
+             withCredentials([usernamePassword(credentialsId: 'NEXUS_CREDS', usernameVariable: 'NUSER', passwordVariable: 'NPASS')]) {
+               sh """
+                 echo "Logging into Nexus registry..."
+                 echo "$NPASS" | docker login 13.204.233.144:8083 -u "$NUSER" --password-stdin
+        
+                 echo "Tagging image"
+                 docker tag node-app:v1 13.204.233.144:8083/node-app:v1
+        
+                 echo "Pushing image"
+                 docker push 13.204.233.144:8083/node-app:v1
+                 """
+    }
+  }
+}
+
 
     }
 }
