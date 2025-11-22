@@ -11,12 +11,12 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
+         stage('Checkout') {
             steps {
-                git url: 'https://github.com/gosulaeswar2498/DevSecops_Project.git'
-            }
-        }
-
+                git branch: 'main',
+                    url: 'https://github.com/gosulaeswar2498/DevSecops_Project.git'
+                }
+        } 
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
