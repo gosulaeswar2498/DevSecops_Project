@@ -1,0 +1,19 @@
+replicaCount: 1
+image:
+  repository: "13.204.233.144:8083/node-app"
+  tag: "v1"
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+service:
+  type: LoadBalancer
+  port: 3000
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+env:
+  - name: NODE_ENV
+    value: production
