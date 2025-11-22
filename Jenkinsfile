@@ -8,7 +8,7 @@ pipeline {
     environment {
         APP_NAME   = "node-app"
         IMAGE_TAG  = "v1"
-        REGISTRY   = "13.204.233.144:8081"   // Your Nexus Docker repo
+        REGISTRY   = "13.204.233.144:8083"   // Your Nexus Docker repo
         SONAR_HOST = "http://13.204.233.144:9000"
         TRIVY_PATH = "/usr/local/bin/trivy" // Or container alias
     }
